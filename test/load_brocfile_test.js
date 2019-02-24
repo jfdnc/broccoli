@@ -6,6 +6,8 @@ const esmRequire = require('esm')(module);
 
 const projectPath = 'test/fixtures/project';
 const projectPathEsm = 'test/fixtures/project-esm';
+const projectPathTs = 'test/fixtures/project-ts';
+const projectPathTsConfig = 'test/fixtures/project-ts-tsconfig';
 const brocfileFixture = require('../' + projectPath + '/Brocfile.js');
 const brocfileFunctionFixture = require('../' + projectPath + '/Brocfile-Function.js');
 const brocfileEsmFixture = esmRequire('../' + projectPathEsm + '/Brocfile.js');
@@ -27,7 +29,7 @@ describe('loadBrocfile', function() {
     });
 
     it('return tree definition', function() {
-      chai.expect(() => loadBrocfile()).to.throw(Error, 'Brocfile.js not found');
+      chai.expect(() => loadBrocfile()).to.throw(Error, 'Brocfile.[js|ts] not found');
     });
   });
 
@@ -40,6 +42,34 @@ describe('loadBrocfile', function() {
       const brocfile = loadBrocfile();
       chai.expect(brocfile).to.be.a('function');
       chai.expect(brocfile()).to.equal(brocfileFixture);
+    });
+  });
+
+  context('with invalid Brocfile.ts', function() {
+    this.slow(2000);
+
+    it('throws an error for invalid syntax', function() {
+      chai.expect(() => loadBrocfile({ brocfilePath: projectPathTs + '/Brocfile-invalid.ts' }))
+        .to
+        .throw(Error, `Brocfile-invalid.ts(2,17): error TS7006: Parameter 'options' implicitly has an 'any' type.`);
+    });
+  });
+
+  context('with Brocfile.ts', function() {
+    this.slow(2000);
+
+    it('compiles and return tree definition', function() {
+      process.chdir(projectPathTs);
+      const brocfile = loadBrocfile();
+      chai.expect(brocfile).to.be.a('function');
+      chai.expect(brocfile()).to.equal(brocfileFixture);
+    });
+
+    it('uses the project tsconfig.json', function() {
+      process.chdir(projectPathTsConfig);
+      const brocfile = loadBrocfile();
+      chai.expect(brocfile).to.be.a('function');
+      chai.expect(brocfile({ env: 'subdir' })).to.equal(brocfileFixture);
     });
   });
 
