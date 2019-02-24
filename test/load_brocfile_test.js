@@ -49,9 +49,12 @@ describe('loadBrocfile', function() {
     this.slow(2000);
 
     it('throws an error for invalid syntax', function() {
-      chai.expect(() => loadBrocfile({ brocfilePath: projectPathTs + '/Brocfile-invalid.ts' }))
-        .to
-        .throw(Error, `Brocfile-invalid.ts(2,17): error TS7006: Parameter 'options' implicitly has an 'any' type.`);
+      chai
+        .expect(() => loadBrocfile({ brocfilePath: projectPathTs + '/Brocfile-invalid.ts' }))
+        .to.throw(
+          Error,
+          `Brocfile-invalid.ts(2,17): error TS7006: Parameter 'options' implicitly has an 'any' type.`
+        );
     });
   });
 
