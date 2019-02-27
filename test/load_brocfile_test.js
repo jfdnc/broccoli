@@ -17,6 +17,10 @@ describe('loadBrocfile', function() {
 
   beforeEach(function() {
     oldCwd = process.cwd();
+
+    // Ensure any previous .tsx? extensions are removed
+    delete require.extensions['.ts']; // eslint-disable-line node/no-deprecated-api
+    delete require.extensions['.tsx']; // eslint-disable-line node/no-deprecated-api
   });
 
   afterEach(function() {
