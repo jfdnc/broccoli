@@ -44,8 +44,6 @@
     "sane": "^4.0.0",
     "tmp": "0.0.33",
     "tree-sync": "^1.2.2",
-    "ts-node": "^8.0.2",
-    "typescript": "^3.3.3",
     "underscore.string": "^3.2.2",
     "watch-detector": "^0.1.0"
   },
@@ -66,7 +64,9 @@
     "semver": "^5.5.0",
     "sinon": "^5.1.1",
     "sinon-chai": "^3.1.0",
-    "symlink-or-copy": "^1.2.0"
+    "symlink-or-copy": "^1.2.0",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.3333"
   },
   "engines": {
     "node": ">= 6"
