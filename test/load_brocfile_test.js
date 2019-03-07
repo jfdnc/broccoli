@@ -3,6 +3,7 @@
 const loadBrocfile = require('../lib/load_brocfile');
 const chai = require('chai');
 const esmRequire = require('esm')(module);
+const BroccoliSource = require('broccoli-source');
 
 const projectPath = 'test/fixtures/project';
 const projectPathEsm = 'test/fixtures/project-esm';
@@ -69,7 +70,7 @@ describe('loadBrocfile', function() {
       process.chdir(projectPathTs);
       const brocfile = loadBrocfile();
       chai.expect(brocfile).to.be.a('function');
-      chai.expect(brocfile()).to.equal(brocfileFixture);
+      chai.expect(brocfile()).to.be.an.instanceof(BroccoliSource.UnwatchedDir);
     });
 
     it('uses the project tsconfig.json', function() {
