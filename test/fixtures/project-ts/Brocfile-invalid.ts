@@ -1,2 +1,3 @@
-// Options should have a type of any at least
+const foo: String = 123;
+
 export default (options) => 'subdir';

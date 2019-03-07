@@ -57,7 +57,7 @@ describe('loadBrocfile', function() {
         .expect(() => loadBrocfile({ brocfilePath: projectPathTs + '/Brocfile-invalid.ts' }))
         .to.throw(
           Error,
-          `Brocfile-invalid.ts(2,17): error TS7006: Parameter 'options' implicitly has an 'any' type.`
+          `Brocfile-invalid.ts(1,7): error TS2322: Type '123' is not assignable to type 'String'.`
         );
     });
   });
